@@ -42,6 +42,7 @@ dependencies:
   dio: ^4.0.6
   dartz: ^0.10.1
   flutter_flushbar: ^0.0.2
+  pretty_dio_logger: ^1.0.9
 
 
 dev_dependencies:

@@ -1,5 +1,6 @@
 import 'package:cubbit_egitim/core/consts/colors.dart';
 import 'package:cubbit_egitim/features/presentation/register_cubit/register_cubit.dart';
+import 'package:cubbit_egitim/features/presentation/views/login_view.dart';
 import 'package:cubbit_egitim/features/presentation/views/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,7 +54,7 @@ class _RegisterViewState extends State<RegisterView> {
                 listener: (context, state) {
                   if (state is RegisterComplete) {
                     Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => MainView()));
+                        MaterialPageRoute(builder: (context) => LoginView()));
                   }
                   if (state is RegisterError) {
                     Flushbar(
@@ -99,7 +100,7 @@ class _RegisterViewState extends State<RegisterView> {
                           context.read<RegisterCubit>().register(
                               _usernameController.text,
                               _passwordController.text,
-                              0);
+                              1);
                         },
                         child: Text("Kayıt Ol"));
                   }

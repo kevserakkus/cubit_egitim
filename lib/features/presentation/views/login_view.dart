@@ -28,90 +28,94 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LoginCubit(),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 200,
-            ),
-            Text("Giriş Sayfasına Hoşgeldiniz"),
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: TextFormField(
-                controller: _usernameController,
-                decoration: InputDecoration(label: Text("Kullanıcı Adı")),
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 200,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(label: Text("Şifre")),
+              Text("Giriş Sayfasına Hoşgeldiniz"),
+              Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: TextFormField(
+                  controller: _usernameController,
+                  decoration: InputDecoration(label: Text("Kullanıcı Adı")),
+                ),
               ),
-            ),
-            BlocConsumer<LoginCubit, LoginState>(
-              listener: (context, state) {
-                if (state is LoginComplete) {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => MainView()));
-                }
+              Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(label: Text("Şifre")),
+                ),
+              ),
+              BlocConsumer<LoginCubit, LoginState>(
+                listener: (context, state) {
+                  if (state is LoginComplete) {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => MainView()));
+                  }
 
-                if (state is LoginError) {
-                  Flushbar(
-                    flushbarPosition: FlushbarPosition.TOP,
-                    backgroundColor: Colors.red,
-                    duration: Duration(seconds: 3),
-                    titleText: Text(
-                      "Oops, Giriş Yapılamadı",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
-                          color: Colors.white,
-                          fontFamily: "ShadowsIntoLightTwo"),
-                    ),
-                    messageText: Text(
-                      "Hop hemşerim nereye.",
-                      style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.white,
-                          fontFamily: "ShadowsIntoLightTwo"),
-                    ),
-                  )..show(context);
-                }
-              },
-              builder: (context, state) {
-                if (state is LoginLoading) {
-                  return SizedBox(
-                      height: 160,
-                      width: 160,
-                      child: Center(
-                          child: CircularProgressIndicator(
-                        color: Colors.black,
-                      )));
-                } else {
-                  return ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.only(
-                              left: 38, right: 38, top: 26, bottom: 26),
-                          backgroundColor: ColorsPalette.primary),
-                      onPressed: () {
-                        context.read<LoginCubit>().login(
-                            _usernameController.text,
-                            _passwordController.text,
-                            "asdasd",
-                            2);
-                      },
-                      child: Text("Giriş Yap"));
-                }
-              },
-            ),
-            ElevatedButton(
-              child: Text("Kayıt Olmak İçin Tıklayın"),
-              
-              onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterView()));
-            })
-          ],
+                  if (state is LoginError) {
+                    Flushbar(
+                      flushbarPosition: FlushbarPosition.TOP,
+                      backgroundColor: Colors.red,
+                      duration: Duration(seconds: 3),
+                      titleText: Text(
+                        "Oops, Giriş Yapılamadı",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0,
+                            color: Colors.white,
+                            fontFamily: "ShadowsIntoLightTwo"),
+                      ),
+                      messageText: Text(
+                        "Hop hemşerim nereye.",
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.white,
+                            fontFamily: "ShadowsIntoLightTwo"),
+                      ),
+                    )..show(context);
+                  }
+                },
+                builder: (context, state) {
+                  if (state is LoginLoading) {
+                    return SizedBox(
+                        height: 160,
+                        width: 160,
+                        child: Center(
+                            child: CircularProgressIndicator(
+                          color: Colors.black,
+                        )));
+                  } else {
+                    return ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.only(
+                                left: 38, right: 38, top: 26, bottom: 26),
+                            backgroundColor: ColorsPalette.primary),
+                        onPressed: () {
+                          context.read<LoginCubit>().login(
+                              _usernameController.text,
+                              _passwordController.text,
+                              "asdasd",
+                              2);
+                        },
+                        child: Text("Giriş Yap"));
+                  }
+                },
+              ),
+              ElevatedButton(
+                  child: Text("Kayıt Olmak İçin Tıklayın"),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegisterView()));
+                  })
+            ],
+          ),
         ),
       ),
     );
